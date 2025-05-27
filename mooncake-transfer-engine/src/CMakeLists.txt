@@ -1,4 +1,6 @@
-find_package(jsoncpp REQUIRED)
+# find_package(JsonCpp REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 
 file(GLOB ENGINE_SOURCES "*.cpp")
 add_subdirectory(common)
@@ -38,7 +40,7 @@ endif()
 target_link_libraries(
     transfer_engine
     PUBLIC
-    base transport rdma_transport ibverbs glog::glog gflags::gflags pthread JsonCpp::JsonCpp numa yalantinglibs::yalantinglibs
+    base transport rdma_transport ibverbs glog::glog gflags::gflags pthread ${JSONCPP_LIBRARIES} numa yalantinglibs::yalantinglibs
     )
 
 if (USE_CUDA)
